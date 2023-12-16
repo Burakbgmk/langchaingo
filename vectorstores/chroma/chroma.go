@@ -148,6 +148,7 @@ func (s Store) SimilaritySearch(_ context.Context, query string, numDocuments in
 				sDocs = append(sDocs, schema.Document{
 					Metadata:    qr.Metadatas[docsI][docI],
 					PageContent: qr.Documents[docsI][docI],
+					Score:       1.0 - qr.Distances[docsI][docI],
 				})
 			}
 		}
