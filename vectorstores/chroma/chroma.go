@@ -168,6 +168,17 @@ func (s Store) RemoveCollection() error {
 	return nil
 }
 
+func (s Store) ResetCollection() error {
+	if s.client == nil || s.collection == nil {
+		return fmt.Errorf("%w: no collection", ErrRemoveCollection)
+	}
+	_, errRs := s.client.Reset()
+	if errRs != nil {
+		return fmt.Errorf("%w(%s): %w", ErrRemoveCollection, s.collection.Name, errRs)
+	}
+	return nil
+}
+
 func (s Store) getOptions(options ...vectorstores.Option) vectorstores.Options {
 	opts := vectorstores.Options{}
 	for _, opt := range options {
